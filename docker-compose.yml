@@ -1,0 +1,19 @@
+version: '3'
+services:
+  nginx-static:
+    image: flashspys/nginx-static
+    container_name: ${CONTAINER_NAME}
+    volumes: 
+      - ${STATIC}:/static
+    environment:
+      VIRTUAL_HOST: ${DOMAINS}
+      LETSENCRYPT_HOST: ${DOMAINS}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+    logging:
+      options:
+        max-size: ${LOGGING_OPTIONS_MAX_SIZE:-200k}
+
+networks:
+  default:
+    external:
+      name: ${NETWORK}
